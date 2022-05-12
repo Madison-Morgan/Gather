@@ -1,28 +1,34 @@
-package com.example.calanderexample
+package company.project.gather
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class CalendarAdapter(days: ArrayList<String>) : RecyclerView.Adapter<CalenderViewHolder>() {
 
-    private val daysOfMonth : ArrayList<String> = days
+class CalendarAdapter (private val daysOfMonth: ArrayList<String>, private val onItem: OnItemListener) : RecyclerView.Adapter<CalenderViewHolder>() {
+
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalenderViewHolder {
-        var inflater: LayoutInflater = LayoutInflater.from(parent.context)
-        var view: View = inflater.inflate(R.layout.calender_cell, parent, false)
-        var layoutParams : ViewGroup.LayoutParams = view.layoutParams
-        layoutParams.height = (parent.height * 0.16666666).toInt()
-        return CalenderViewHolder(view)
+        val inflater: LayoutInflater = LayoutInflater.from(parent.context)
+        val view: View = inflater.inflate(R.layout.calender_cell, parent, false)
+        val layoutParams : ViewGroup.LayoutParams = view.layoutParams
+        layoutParams.height = (parent.height * 0.166666666).toInt()
+        return CalenderViewHolder(view, onItem)
     }
 
     override fun onBindViewHolder(holder: CalenderViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.dayOfMonth.text = daysOfMonth[position]
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return daysOfMonth.size
+    }
+
+    interface OnItemListener {
+        fun onItemClick(position: Int, dayText: String)
     }
 
 }
